@@ -1,0 +1,172 @@
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Handle signup form
+function handleSignup(event) {
+    event.preventDefault();
+    const email = event.target.querySelector('.email-input').value;
+    alert(`Thank you! We'll notify ${email} when Tower of Wizard launches on Kickstarter!`);
+    event.target.reset();
+}
+
+// Create more floating particles dynamically
+function createParticles() {
+    const header = document.querySelector('header');
+    for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        header.appendChild(particle);
+    }
+}
+
+// Initialize particles when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    createParticles();
+});
+
+// Add entrance animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Initialize entrance animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Observe feature cards for animations
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s ease';
+        observer.observe(card);
+    });
+});
+
+// Optional: Add parallax effect to hero section
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.hero-banner');
+    
+    if (parallax) {
+        const speed = scrolled * 0.5;
+        parallax.style.transform = `translateY(${speed}px)`;
+    }
+});
+
+// Optional: Add typing effect to hero title
+function typeWriter(element, text, speed = 100) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Uncomment to add typing effect to title
+// document.addEventListener('DOMContentLoaded', function() {
+//     const heroTitle = document.querySelector('.hero-title');
+//     if (heroTitle) {
+//         const originalText = heroTitle.textContent;
+//         typeWriter(heroTitle, originalText, 150);
+//     }
+// });
+function initCarousel() {
+    const items = document.querySelectorAll('.carousel-item');
+    let currentIndex = 0;
+    const interval = 6000; // Regular interval (6 seconds)
+    const firstInterval = 1500; // First switch after 1.5 seconds
+
+    // Start all videos
+    items.forEach(item => {
+        if (item.tagName === 'VIDEO') {
+            item.play();
+        }
+    });
+
+    function showNext() {
+        items[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % items.length;
+        items[currentIndex].classList.add('active');
+    }
+
+    // Show first item
+    items[0].classList.add('active');
+
+    // First switch after 3 seconds
+    setTimeout(() => {
+        showNext();
+        // Then start regular interval for subsequent switches
+        setInterval(showNext, interval);
+    }, firstInterval);
+}
+
+// Add to your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing code...
+    initCarousel();
+});
+
+// Add this to your existing script.js
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // Close other open items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
+}
+
+// Add to your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing code...
+    initFAQ();
+});
