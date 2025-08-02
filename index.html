@@ -55,7 +55,7 @@
             
             <h1 class="hero-title">Tower of Wizard</h1>
             <p class="hero-subtitle">Survive the cursed tower. Master arcane powers. Uncover the mystery at the top.</p>
-            <a href="#signup" class="cta-button">Get Notified on Kickstarter</a>
+            <a href="#signup" class="cta-button">Join email-list for (Secret) Offers!</a>
         </div>
 
         <!-- Floating particles -->
@@ -137,7 +137,7 @@
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>Tower of Wizard will first launch on Kickstarter in Q4 2025. Following a successful campaign, we aim to release the game in Q2 2026.</p>
+                    <p>Tower of Wizard will first launch on Kickstarter in Q2 2025. Following a successful campaign, we aim to release the game in Q4 2026.</p>
                 </div>
             </div>
 
@@ -153,11 +153,11 @@
 
             <div class="faq-item">
                 <button class="faq-question">
-                    Will there be multiple playable characters?
+                    Will there be a demo available?
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>The base game includes one main wizard character with multiple progression paths. Additional playable characters with unique abilities will be unlocked through gameplay achievements.</p>
+                    <p>We plan to release a demo in addition our Kickstarter, you can stay tuned by joinning the email list!</p>
                 </div>
             </div>
 
@@ -180,25 +180,42 @@
         <div class="container">
             <h2 class="section-title">Join the Ascension</h2>
             <p style="font-size: 1.2rem; margin-bottom: 30px; color: #d0d0d0;">
-                Be the first to know when Tower of Wizard launches on Kickstarter!
+                Join the list for <span style="color: rgb(202, 189, 0); font-weight: 1000;">exclusive</span> content!
             </p>
-            <form class="signup-form" onsubmit="handleSignup(event)">
-                <input type="email" class="email-input" placeholder="Enter your email address" required>
-                <button type="submit" class="signup-button">Notify Me</button>
-            </form>
-            <p style="margin-top: 20px; color: #888; font-size: 0.9rem;">
-                Get exclusive updates, early access opportunities, and behind-the-scenes content
+            <form id="signupForm" class="signup-form">
+    <input type="email" class="email-input" placeholder="Enter your email address" required>
+    <button type="submit" class="signup-button">Notify Me</button>
+    <div id="formMessage" style="display: none; margin-top: 10px;"></div>
+</form>
+            <p style="margin-top: 20px; color: #cfcfcf; font-size: 0.9rem;">
+                Get <span style="color: rgb(202, 189, 0); font-weight: 1000;">exclusive</span> updates, early access opportunities, and behind-the-scenes content
             </p>
         </div>
+        <!-- Replace your current signup form with this -->
+
+
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Tower of Wizard. All rights reserved. | Coming Soon to Kickstarter</p>
+            <p>&copy; 2025 Tower of Wizard. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
+        <!-- ...existing code... -->
+    <div id="kickstarterPopup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Thanks for Joining! 🎮</h3>
+            <p>Follow us on Kickstarter to get notified when we launch!</p>
+            <a href="https://www.kickstarter.com/profile/313713196" class="popup-button" target="_blank">
+                Follow on Kickstarter
+            </a>
+            <button class="popup-close">Maybe Later</button>
+        </div>
+    </div>
+    <!-- ...existing code... -->
+</body>
 </body>
 </html>

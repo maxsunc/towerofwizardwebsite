@@ -55,6 +55,7 @@ header {
     z-index: 2;
     max-width: 800px;
     padding: 0 20px;
+    text-align:  center ;
 }
 
 .game-logo {
@@ -78,17 +79,20 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     /* text-shadow: 0 0 30px rgba(100, 255, 218, 0.5); */
+    
 }
 
 .hero-subtitle {
     font-size: 1.3rem;
     margin-bottom: 30px;
     color: #b0b0b0;
+    
 }
 
 .cta-button {
     font-family: 'Arial', sans-serif;
     display: inline-block;
+    background-color: rgb(152, 142, 0);
     padding: 15px 40px;
     color: white;
     text-decoration: none;
@@ -96,7 +100,7 @@ header {
     font-weight: bold;
     font-size: 1.1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+    /* box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3); */
     position: relative;
     overflow: hidden;
 }
@@ -202,7 +206,7 @@ nav.scrolled {
     text-align: center;
     margin-bottom: 50px;
     font-style: bold    ;
-    background: linear-gradient(45deg, #64ff73, #c16bff);
+    background: linear-gradient(45deg, #d6ff64, #c9ff4c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -359,7 +363,7 @@ nav.scrolled {
 
 .signup-button {
     padding: 15px 30px;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    background: linear-gradient(45deg, #cac700, #d6a400);
     color: white;
     border: none;
     border-radius: 50px;
@@ -504,4 +508,86 @@ footer {
 .faq-answer p {
     color: #b0b0b0;
     line-height: 1.6;
+}
+
+ /* singup form */
+#formMessage {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+
+
+/* popup */
+/* Popup styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-content {
+    background: linear-gradient(135deg, #2a1f4d, #1a0f2e);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    animation: popupFade 0.3s ease-out;
+}
+
+@keyframes popupFade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.popup-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #64ffda;
+}
+
+.popup-content p {
+    margin-bottom: 25px;
+    color: #e0e0e0;
+}
+
+.popup-button {
+    display: block;
+    background: linear-gradient(45deg, #cac700, #d6a400);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.popup-button:hover {
+    transform: translateY(-2px);
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.popup-close:hover {
+    color: #e0e0e0;
 }

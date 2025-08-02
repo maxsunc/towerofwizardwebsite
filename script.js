@@ -22,13 +22,50 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Handle signup form
-function handleSignup(event) {
-    event.preventDefault();
-    const email = event.target.querySelector('.email-input').value;
-    alert(`Thank you! We'll notify ${email} when Tower of Wizard launches on Kickstarter!`);
-    event.target.reset();
-}
+// Replace your current handleSignup function with this
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwADssuuAHFBIGIhqUK-JdFMK5xu5wgBbWjtTuj1FkJGX63M9WjVDTDLlxkx7JXQ-WEg/exec'; // Replace with your Google Apps Script Web App URL
+
+document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = this.querySelector('.email-input').value;
+    const messageDiv = document.getElementById('formMessage');
+    const submitButton = this.querySelector('.signup-button');
+    
+    // Disable the submit button and show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({ email: email }),
+            mode: 'no-cors'
+        });
+        
+        // Show success message
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#64ffda';
+        messageDiv.textContent = 'Thank you for signing up! We\'ll keep you updated.';
+        this.reset();
+        
+    } catch (error) {
+        // Show error message
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#ff6b6b';
+        messageDiv.textContent = 'Oops! Something went wrong. Please try again.';
+    }
+    
+    // Reset button state
+    submitButton.disabled = false;
+    submitButton.textContent = 'Notify Me';
+    
+    // Hide message after 5 seconds
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+    }, 5000);
+});
+// signup form end
 
 // Create more floating particles dynamically
 function createParticles() {
@@ -169,4 +206,59 @@ function initFAQ() {
 document.addEventListener('DOMContentLoaded', function() {
     // ...existing code...
     initFAQ();
+});
+
+// popup
+// Replace your current handleSignup function with this updated version
+document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = this.querySelector('.email-input').value;
+    const messageDiv = document.getElementById('formMessage');
+    const submitButton = this.querySelector('.signup-button');
+    
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({ email: email }),
+            mode: 'no-cors'
+        });
+        
+        // Show success message
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#64ffda';
+        messageDiv.textContent = 'Thank you for signing up! We\'ll keep you updated.';
+        this.reset();
+        
+        // Show Kickstarter popup
+        const popup = document.getElementById('kickstarterPopup');
+        popup.style.display = 'flex';
+        
+    } catch (error) {
+        messageDiv.style.display = 'block';
+        messageDiv.style.color = '#ff6b6b';
+        messageDiv.textContent = 'Oops! Something went wrong. Please try again.';
+    }
+    
+    submitButton.disabled = false;
+    submitButton.textContent = 'Notify Me';
+    
+    setTimeout(() => {
+        messageDiv.style.display = 'none';
+    }, 5000);
+});
+
+// Add popup close functionality
+document.querySelector('.popup-close').addEventListener('click', function() {
+    document.getElementById('kickstarterPopup').style.display = 'none';
+});
+
+// Close popup when clicking outside
+document.getElementById('kickstarterPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
 });
