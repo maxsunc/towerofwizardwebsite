@@ -31,8 +31,8 @@ body::before {
     background: 
         linear-gradient(
             100deg, 
-            rgba(103, 80, 199, 0.9) 0%, 
-            rgba(2, 29, 104, 0.9) 50%, 
+            rgba(21, 15, 44, 0.9) 0%, 
+            rgba(37, 5, 73, 0.9) 50%, 
             rgba(123, 119, 167, 0.9) 100%
         ),
         url('images/background.png');
@@ -363,7 +363,7 @@ nav.scrolled {
 
 /* Newsletter Signup */
 .newsletter {
-    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+    background: linear-gradient(135deg, rgba(29, 12, 12, 0.5), rgba(10, 29, 28, 0.5));
     text-align: center;
 }
 
