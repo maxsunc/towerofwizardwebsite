@@ -251,14 +251,37 @@ document.getElementById('signupForm').addEventListener('submit', async function(
     }, 5000);
 });
 
-// Add popup close functionality
-document.querySelector('.popup-close').addEventListener('click', function() {
-    document.getElementById('kickstarterPopup').style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing code...
+    
+    // Add popup close functionality
+    document.querySelector('.popup-close').addEventListener('click', function() {
+        document.getElementById('kickstarterPopup').style.display = 'none';
+    });
+
+    // Close popup when clicking outside
+    document.getElementById('kickstarterPopup').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
 });
 
-// Close popup when clicking outside
-document.getElementById('kickstarterPopup').addEventListener('click', function(e) {
-    if (e.target === this) {
-        this.style.display = 'none';
-    }
+
+// Add this to your existing scroll event listener
+window.addEventListener('scroll', function() {
+    // ...existing navbar code...
+    
+    // Background parallax
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.15; // Adjust this value to control movement speed
+    
+    document.body.style.setProperty('--bg-shift', `${rate}px`);
+    document.body.style.backgroundPosition = `center ${rate}px`;
+    
+    // Apply the parallax effect to the pseudo-element
+    document.documentElement.style.setProperty(
+        '--pseudo-bg-position',
+        `50% ${50 + rate * 0.1}%`
+    );
 });
