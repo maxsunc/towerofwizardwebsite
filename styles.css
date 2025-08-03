@@ -106,8 +106,9 @@ header {
 .hero-title {
     font-size: 5rem;
     font-weight: bold;
+    font-style: underline   ;
     margin-bottom: 20px;
-    background: linear-gradient(90deg, #6964ff, #e8cf53);
+    background: linear-gradient(90deg, #6964ff, #c5c5c5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     /* text-shadow: 0 0 30px rgba(100, 255, 218, 0.5); */
@@ -238,7 +239,7 @@ nav.scrolled {
     text-align: center;
     margin-bottom: 50px;
     font-style: bold    ;
-    background: linear-gradient(45deg, #d6ff64, #c9ff4c);
+    background: linear-gradient(45deg, #90a900, #b9d600);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -571,7 +572,7 @@ footer {
 }
 
 .popup-content {
-    background: linear-gradient(135deg, #2a1f4d, #1a0f2e);
+    background: linear-gradient(135deg, #161029, #1a0f2e);
     padding: 40px;
     border-radius: 20px;
     text-align: center;
