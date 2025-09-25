@@ -285,3 +285,174 @@ window.addEventListener('scroll', function () {
         `50% ${50 + rate * 0.1}%`
     );
 });
+
+// Spell Preview System
+class SpellEffects {
+    constructor() {
+        this.canvas = document.getElementById('spellCanvas');
+        this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
+        this.particles = [];
+        this.animationId = null;
+        this.currentSpell = null;
+
+        if (this.canvas) {
+            this.resizeCanvas();
+            window.addEventListener('resize', () => this.resizeCanvas());
+            this.initSpellHovers();
+        }
+    }
+
+    resizeCanvas() {
+        const rect = this.canvas.parentElement.getBoundingClientRect();
+        this.canvas.width = rect.width;
+        this.canvas.height = rect.height;
+    }
+
+    initSpellHovers() {
+        const spellSchools = document.querySelectorAll('.spell-school');
+        spellSchools.forEach(school => {
+            school.addEventListener('mouseenter', () => {
+                const spellType = school.dataset.spell;
+                this.startSpellEffect(spellType);
+            });
+
+            school.addEventListener('mouseleave', () => {
+                this.stopSpellEffect();
+            });
+        });
+    }
+
+    startSpellEffect(spellType) {
+        this.currentSpell = spellType;
+        this.particles = [];
+
+        // Create initial particles based on spell type
+        for (let i = 0; i < 15; i++) {
+            this.particles.push(this.createParticle(spellType));
+        }
+
+        this.animate();
+    }
+
+    stopSpellEffect() {
+        this.currentSpell = null;
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    createParticle(spellType) {
+        const particle = {
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            life: 1.0,
+            decay: Math.random() * 0.02 + 0.01,
+            size: Math.random() * 8 + 3
+        };
+
+        switch (spellType) {
+            case 'fire':
+                particle.color = `hsl(${Math.random() * 60}, 100%, ${50 + Math.random() * 30}%)`;
+                particle.vy -= 2; // Fire rises
+                break;
+            case 'light':
+                particle.color = `hsl(${50 + Math.random() * 20}, 100%, ${70 + Math.random() * 20}%)`;
+                particle.vx *= 0.3;
+                particle.vy *= 0.3;
+                particle.vy -= 1; // Light magic floats upward
+                break;
+            case 'lightning':
+                particle.color = `hsl(${180 + Math.random() * 40}, 80%, ${60 + Math.random() * 30}%)`;
+                particle.vx *= 2;
+                particle.vy *= 2;
+                break;
+            case 'dark':
+                particle.color = `hsl(${270 + Math.random() * 40}, 60%, ${30 + Math.random() * 30}%)`;
+                particle.vy += 1; // Dark magic sinks
+                break;
+        }
+
+        return particle;
+    }
+
+    animate() {
+        if (!this.currentSpell) return;
+
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Update and draw particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            const particle = this.particles[i];
+
+            // Update particle
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.life -= particle.decay;
+
+            // Wrap around edges
+            if (particle.x < 0) particle.x = this.canvas.width;
+            if (particle.x > this.canvas.width) particle.x = 0;
+            if (particle.y < 0) particle.y = this.canvas.height;
+            if (particle.y > this.canvas.height) particle.y = 0;
+
+            // Draw particle
+            if (particle.life > 0) {
+                this.ctx.globalAlpha = particle.life;
+                this.ctx.fillStyle = particle.color;
+                this.ctx.beginPath();
+
+                if (this.currentSpell === 'lightning') {
+                    // Draw jagged lines for lightning
+                    this.drawLightning(particle);
+                } else {
+                    // Draw circles for other spells
+                    this.ctx.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2);
+                    this.ctx.fill();
+                }
+            } else {
+                // Remove dead particles and create new ones
+                this.particles.splice(i, 1);
+                if (this.particles.length < 15) {
+                    this.particles.push(this.createParticle(this.currentSpell));
+                }
+            }
+        }
+
+        this.ctx.globalAlpha = 1;
+        this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    drawLightning(particle) {
+        const segments = 5;
+        const segmentLength = particle.size * 2;
+
+        this.ctx.strokeStyle = particle.color;
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(particle.x, particle.y);
+
+        let x = particle.x;
+        let y = particle.y;
+
+        for (let i = 0; i < segments; i++) {
+            x += (Math.random() - 0.5) * segmentLength;
+            y += (Math.random() - 0.5) * segmentLength;
+            this.ctx.lineTo(x, y);
+        }
+
+        this.ctx.stroke();
+    }
+}
+
+// Initialize spell effects when DOM is loaded
+document.addEventListener('DOMContentLoaded', function () {
+    // ...existing code...
+
+    // Initialize spell effects
+    new SpellEffects();
+});
