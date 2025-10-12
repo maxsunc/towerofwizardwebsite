@@ -22,8 +22,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Replace your current handleSignup function with this
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwADssuuAHFBIGIhqUK-JdFMK5xu5wgBbWjtTuj1FkJGX63M9WjVDTDLlxkx7JXQ-WEg/exec'; // Replace with your Google Apps Script Web App URL
+// Email signup handler
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-MW8iEcqGEGgFGofGMJ6v6aBH5xgvGDs4m0yhybBI_b8LB3DUzGYBfSKq1ymDC4TI3g/exec'; // Replace with your Google Apps Script Web App URL
 
 document.getElementById('signupForm').addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -48,6 +48,10 @@ document.getElementById('signupForm').addEventListener('submit', async function 
         messageDiv.style.color = '#64ffda';
         messageDiv.textContent = 'Thank you for signing up! We\'ll keep you updated.';
         this.reset();
+
+        // Show Kickstarter popup
+        const popup = document.getElementById('kickstarterPopup');
+        popup.style.display = 'flex';
 
     } catch (error) {
         // Show error message
@@ -208,48 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFAQ();
 });
 
-// popup
-// Replace your current handleSignup function with this updated version
-document.getElementById('signupForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const email = this.querySelector('.email-input').value;
-    const messageDiv = document.getElementById('formMessage');
-    const submitButton = this.querySelector('.signup-button');
-
-    submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
-
-    try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify({ email: email }),
-            mode: 'no-cors'
-        });
-
-        // Show success message
-        messageDiv.style.display = 'block';
-        messageDiv.style.color = '#64ffda';
-        messageDiv.textContent = 'Thank you for signing up! We\'ll keep you updated.';
-        this.reset();
-
-        // Show Kickstarter popup
-        const popup = document.getElementById('kickstarterPopup');
-        popup.style.display = 'flex';
-
-    } catch (error) {
-        messageDiv.style.display = 'block';
-        messageDiv.style.color = '#ff6b6b';
-        messageDiv.textContent = 'Oops! Something went wrong. Please try again.';
-    }
-
-    submitButton.disabled = false;
-    submitButton.textContent = 'Notify Me';
-
-    setTimeout(() => {
-        messageDiv.style.display = 'none';
-    }, 5000);
-});
+// popup functionality
 
 document.addEventListener('DOMContentLoaded', function () {
     // ...existing code...
