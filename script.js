@@ -23,7 +23,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Email signup handler
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-MW8iEcqGEGgFGofGMJ6v6aBH5xgvGDs4m0yhybBI_b8LB3DUzGYBfSKq1ymDC4TI3g/exec'; // Replace with your Google Apps Script Web App URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuwOS1gfMtSELF8Po7hkXCuAPy0AarDxfhRrVhVbEspf6T7xl2kJ2b9j5tSB8JoSV62A/exec'; // Replace with your Google Apps Script Web App URL
 
 document.getElementById('signupForm').addEventListener('submit', async function (e) {
     e.preventDefault();
